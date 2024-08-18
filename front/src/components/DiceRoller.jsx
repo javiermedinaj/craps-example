@@ -3,7 +3,7 @@ import { rollDice } from '../services/api';
 import { ResultDisplay } from './ResultDisplay';
 import './DiceRoller.css';
 
-export const DiceRoller = () => {
+export const DiceRoller = ({ setRotation }) => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -11,6 +11,15 @@ export const DiceRoller = () => {
   const handleRollDice = async () => {
     setLoading(true);
     setError(null);
+
+    // Genera una rotación aleatoria para el dado
+    const randomRotation = [
+      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2,
+    ];
+    setRotation(randomRotation); // Establece la nueva rotación
+
     try {
       const diceResult = await rollDice();
       setResult(diceResult);
